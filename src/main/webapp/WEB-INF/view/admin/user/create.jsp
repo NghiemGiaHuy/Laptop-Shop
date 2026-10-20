@@ -28,23 +28,23 @@
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                     <div class="mb-3">
                         <label class="form-label">Email:</label>
-                        <form:input type="email" class="form-control" path="email">
+                        <form:input type="email" class="form-control" path="email"/>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Password:</label>
-                        <form:input type="password" class="form-control" path="password">
+                        <form:input type="password" class="form-control" path="password"/>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Phone number:</label>
-                        <form:input type="text" class="form-control" path="phone">
+                        <form:input type="text" class="form-control" path="phone"/>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Full Name:</label>
-                        <form:input type="text" class="form-control" path="fullName">
+                        <form:input type="text" class="form-control" path="fullName"/>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Address:</label>
-                        <form:input type="text" class="form-control" path="address">
+                        <form:input type="text" class="form-control" path="address"/>
                     </div>
                     <button type="submit" class="btn btn-primary">Create</button>
                 </form:form>
