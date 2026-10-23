@@ -26,8 +26,11 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
-    public String handleHello() {
-        return "hello from servicee";
+    public User getUserById(long id) {
+        return userRepository.findById(id);
     }
 
+    public void deleteUserById(long id) {
+        userRepository.deleteById(id);
+    }
 }

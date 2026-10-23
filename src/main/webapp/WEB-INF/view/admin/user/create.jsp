@@ -24,7 +24,7 @@
             <div class="col-md-6 col-12 mx-auto">
                 <h3>Create Users</h3>
                 <hr/>
-                <form:form method="post" action="/admin/user/create1" modelAttribute="newUser">
+                <form:form method="post" action="/admin/user/create" modelAttribute="newUser">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                     <div class="mb-3">
                         <label class="form-label">Email:</label>
