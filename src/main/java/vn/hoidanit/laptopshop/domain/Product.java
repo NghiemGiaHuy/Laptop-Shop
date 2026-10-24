@@ -2,6 +2,8 @@ package vn.hoidanit.laptopshop.domain;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "products")
 public class Product {
@@ -17,6 +19,9 @@ public class Product {
     private long sold;
     private String factory;
     private String target;
+
+    @OneToMany(mappedBy = "product")
+    private List<OrderDetail> orderDetails;
 
     public long getId() {
         return id;
@@ -96,6 +101,14 @@ public class Product {
 
     public void setTarget(String target) {
         this.target = target;
+    }
+
+    public List<OrderDetail> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(List<OrderDetail> orderDetails) {
+        this.orderDetails = orderDetails;
     }
 
     @Override

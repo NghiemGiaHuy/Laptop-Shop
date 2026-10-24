@@ -1,0 +1,408 @@
+@charset "UTF-8";
+/* ==========================================================================
+   custom.css - compact typography and spacing for the admin dashboard
+   Must be linked AFTER /css/styles.css on every JSP page.
+   bootstrap.min / styles.css are never edited: this file only overrides them.
+
+   Scale: page title 20px > section title 15px > body/input 14px > label 12.5px
+   ========================================================================== */
+
+:root {
+    --ui-body: 14px;
+    --ui-title: 20px;
+    --ui-section: 15px;
+    --ui-card-title: 13px;
+    --ui-label: 12.5px;
+    --ui-input: 14px;
+    --ui-button: 13px;
+    --ui-table: 13px;
+    --ui-table-head: 12px;
+    --ui-secondary: 12px;
+
+    --ui-text: #1f2328;
+    --ui-muted: #57606a;
+    --ui-border: #d8dee4;
+    --ui-border-soft: #e6eaef;
+    --ui-head-bg: #f6f8fa;
+    --ui-gap: 10px;
+}
+
+/* --------------------------------------------------------------------------
+   1. Base text
+   -------------------------------------------------------------------------- */
+body.sb-nav-fixed {
+    font-size: var(--ui-body);
+    line-height: 1.5;
+    color: var(--ui-text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body.sb-nav-fixed h1 {
+    font-size: var(--ui-title);
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+}
+
+body.sb-nav-fixed h2 {
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+body.sb-nav-fixed h3 {
+    font-size: var(--ui-section);
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: -0.005em;
+}
+
+body.sb-nav-fixed h3.fw-bold {
+    font-weight: 600 !important;
+}
+
+body.sb-nav-fixed h4 {
+    font-size: var(--ui-body);
+    font-weight: 600;
+}
+
+body.sb-nav-fixed h5,
+body.sb-nav-fixed h6 {
+    font-size: var(--ui-body);
+    font-weight: 600;
+}
+
+body.sb-nav-fixed p {
+    font-size: var(--ui-body);
+}
+
+body.sb-nav-fixed small,
+body.sb-nav-fixed .small {
+    font-size: var(--ui-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   2. Page rhythm: title, breadcrumb and the wrapper containers
+   -------------------------------------------------------------------------- */
+body.sb-nav-fixed main .container-fluid > h1 {
+    margin-top: 16px !important;
+    margin-bottom: 4px;
+}
+
+body.sb-nav-fixed .breadcrumb {
+    --bs-breadcrumb-item-padding-x: 4px;
+    font-size: var(--ui-secondary);
+}
+
+body.sb-nav-fixed .breadcrumb.mb-4 {
+    margin-bottom: var(--ui-gap) !important;
+}
+
+/* the extra .container nested inside .container-fluid only adds dead space */
+body.sb-nav-fixed main .container-fluid > .container {
+    max-width: 100%;
+    margin-top: 4px !important;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+/* forms, detail card and confirmation blocks use one left-aligned column
+   (col-12 col-lg-6 in the JSPs, never mx-auto) so they line up with the h1 */
+body.sb-nav-fixed main hr {
+    margin: 8px 0 10px;
+}
+
+body.sb-nav-fixed main {
+    padding-bottom: 8px;
+}
+
+/* keep a section title vertically centred next to its action button */
+body.sb-nav-fixed main .d-flex.justify-content-between {
+    align-items: center;
+}
+
+/* --------------------------------------------------------------------------
+   3. Cards
+   -------------------------------------------------------------------------- */
+body.sb-nav-fixed .card {
+    --bs-card-spacer-y: 12px;
+    --bs-card-spacer-x: 14px;
+    --bs-card-cap-padding-y: 8px;
+    --bs-card-cap-padding-x: 14px;
+    --bs-card-border-radius: 8px;
+    --bs-card-inner-border-radius: 7px;
+    border-color: var(--ui-border);
+    box-shadow: 0 1px 2px rgba(27, 31, 36, 0.04);
+}
+
+body.sb-nav-fixed .card-header {
+    font-size: var(--ui-card-title);
+    font-weight: 600;
+    color: #24292f;
+}
+
+body.sb-nav-fixed .card-body {
+    font-size: var(--ui-body);
+}
+
+body.sb-nav-fixed .card-footer {
+    font-size: var(--ui-secondary);
+}
+
+body.sb-nav-fixed .card.mb-4 {
+    margin-bottom: 16px !important;
+}
+
+/* --------------------------------------------------------------------------
+   4. Forms
+   -------------------------------------------------------------------------- */
+body.sb-nav-fixed .form-label {
+    margin-bottom: 3px;
+    font-size: var(--ui-label);
+    font-weight: 500;
+    color: var(--ui-muted);
+}
+
+body.sb-nav-fixed .form-control,
+body.sb-nav-fixed .form-select,
+body.sb-nav-fixed .datatable-input {
+    padding: 4px 8px;
+    font-size: var(--ui-input);
+    line-height: 1.5;
+    border-color: #d0d7de;
+    border-radius: 6px;
+}
+
+/* keep the dropdown arrow padding defined in styles.css */
+body.sb-nav-fixed .datatable-selector {
+    font-size: var(--ui-input);
+    border-color: #d0d7de;
+    border-radius: 6px;
+}
+
+body.sb-nav-fixed .form-control:focus,
+body.sb-nav-fixed .form-select:focus,
+body.sb-nav-fixed .datatable-input:focus {
+    border-color: #0969da;
+    box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.15);
+}
+
+body.sb-nav-fixed .form-control:disabled,
+body.sb-nav-fixed .datatable-input:disabled {
+    color: var(--ui-muted);
+    background-color: #f6f8fa;
+}
+
+body.sb-nav-fixed .form-text {
+    margin-top: 2px;
+    font-size: var(--ui-secondary);
+}
+
+body.sb-nav-fixed .mb-3 {
+    margin-bottom: var(--ui-gap) !important;
+}
+
+/* --------------------------------------------------------------------------
+   5. Buttons
+   -------------------------------------------------------------------------- */
+body.sb-nav-fixed .btn:not(.btn-link) {
+    --bs-btn-padding-y: 4px;
+    --bs-btn-padding-x: 10px;
+    --bs-btn-font-size: var(--ui-button);
+    --bs-btn-border-radius: 6px;
+    font-weight: 500;
+}
+
+body.sb-nav-fixed .btn-sm:not(.btn-link) {
+    --bs-btn-padding-y: 3px;
+    --bs-btn-padding-x: 8px;
+    font-size: 12px;
+}
+
+/* row actions inside tables stay compact */
+body.sb-nav-fixed .table .btn {
+    --bs-btn-padding-y: 3px;
+    --bs-btn-padding-x: 8px;
+    --bs-btn-font-size: 12px;
+}
+
+/* --------------------------------------------------------------------------
+   6. Tables
+   -------------------------------------------------------------------------- */
+body.sb-nav-fixed .table,
+body.sb-nav-fixed .datatable-table {
+    margin-bottom: 0;
+    font-size: var(--ui-table);
+}
+
+body.sb-nav-fixed .table > :not(caption) > * > *,
+body.sb-nav-fixed .datatable-table > :not(caption) > * > * {
+    padding: 8px 10px;
+}
+
+body.sb-nav-fixed .table > thead > tr > th,
+body.sb-nav-fixed .datatable-table > thead > tr > th {
+    font-size: var(--ui-table-head);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--ui-muted);
+    background-color: var(--ui-head-bg);
+}
+
+body.sb-nav-fixed .table > tbody > tr > th {
+    font-weight: 500;
+    color: var(--ui-text);
+}
+
+body.sb-nav-fixed .table-bordered > :not(caption) > * > * {
+    border-color: var(--ui-border-soft);
+}
+
+body.sb-nav-fixed .datatable-top,
+body.sb-nav-fixed .datatable-bottom {
+    padding: 6px 0;
+    font-size: var(--ui-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   7. Alerts and list groups
+   -------------------------------------------------------------------------- */
+body.sb-nav-fixed .alert {
+    padding: 10px 12px;
+    margin-bottom: var(--ui-gap);
+    font-size: 13px;
+    border-radius: 6px;
+}
+
+body.sb-nav-fixed .list-group-item {
+    padding: 7px 14px;
+    font-size: var(--ui-body);
+}
+
+/* --------------------------------------------------------------------------
+   8. Top navbar
+   -------------------------------------------------------------------------- */
+body.sb-nav-fixed .sb-topnav .navbar-brand {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+}
+
+body.sb-nav-fixed .sb-topnav .navbar-text {
+    font-size: var(--ui-label);
+    opacity: 0.85;
+}
+
+body.sb-nav-fixed .sb-topnav .nav-link {
+    font-size: var(--ui-button);
+}
+
+body.sb-nav-fixed .sb-topnav .dropdown-menu {
+    --bs-dropdown-padding-y: 4px;
+    --bs-dropdown-font-size: var(--ui-button);
+    font-size: var(--ui-button);
+}
+
+body.sb-nav-fixed .sb-topnav .dropdown-item {
+    padding: 4px 12px;
+}
+
+/* --------------------------------------------------------------------------
+   9. Sidebar
+   -------------------------------------------------------------------------- */
+body.sb-nav-fixed .sb-sidenav .sb-sidenav-menu .nav .sb-sidenav-menu-heading {
+    padding: 20px 16px 6px;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+}
+
+body.sb-nav-fixed .sb-sidenav .sb-sidenav-menu .nav .nav-link {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    font-size: var(--ui-button);
+}
+
+body.sb-nav-fixed .sb-sidenav .sb-sidenav-menu .nav .nav-link .sb-nav-link-icon {
+    font-size: 12px;
+}
+
+body.sb-nav-fixed .sb-sidenav .sb-sidenav-footer {
+    padding: 10px 12px;
+    font-size: var(--ui-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   10. Footer
+   -------------------------------------------------------------------------- */
+/* the footer is the last flex item of #layoutSidenav_content: it spans the
+   whole content column and stays below main, never beside or over it */
+body.sb-nav-fixed #layoutSidenav_content > footer {
+    width: 100%;
+    margin-top: auto;
+    border-top: 1px solid var(--ui-border);
+}
+
+body.sb-nav-fixed footer.py-4 {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    font-size: var(--ui-secondary);
+}
+
+body.sb-nav-fixed footer .d-flex {
+    flex-wrap: wrap;
+    gap: 4px 24px;
+}
+
+body.sb-nav-fixed footer .footer-links {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+body.sb-nav-fixed footer a {
+    color: var(--ui-muted);
+    text-decoration: none;
+}
+
+body.sb-nav-fixed footer a:hover {
+    color: #0969da;
+    text-decoration: underline;
+}
+
+/* --------------------------------------------------------------------------
+   11. Hide the vertical scrollbars, keep them scrollable.
+   Scrollbar width is collapsed to zero - overflow is left untouched, so
+   mouse wheel / keyboard / trackpad scrolling keeps working.
+   -------------------------------------------------------------------------- */
+html {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* old Edge / IE */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+.sb-sidenav-menu {
+    scrollbar-width: none;
+}
+
+.sb-sidenav-menu::-webkit-scrollbar {
+    width: 0;
+}
+
+/* --------------------------------------------------------------------------
+   12. Small screens
+   -------------------------------------------------------------------------- */
+@media (max-width: 767.98px) {
+    body.sb-nav-fixed h1 {
+        font-size: 18px;
+    }
+
+    body.sb-nav-fixed main .container-fluid > h1 {
+        margin-top: 12px !important;
+    }
+}

@@ -1,4 +1,4 @@
-package vn.hoidanit.laptopshop.controller;
+package vn.hoidanit.laptopshop.controller.admin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,15 +28,15 @@ public class UserController {
     public String getUserPage(Model model) {
         List<User> users = userService.getAllUsers();
         model.addAttribute("user1", users);
-        return "admin/user/tableUser";
+        return "admin/user/show";
     }
 
-    @GetMapping("admin/user/{id}")
+    @GetMapping("/admin/user/{id}")
     public String getUserDetailPage(Model model, @PathVariable long id) {
         User user = userService.getUserById(id);
         model.addAttribute("id", id);
         model.addAttribute("user", user);
-        return "admin/user/userDetail";
+        return "admin/user/detail";
     }
 
     @RequestMapping(value = "/admin/user/create", method = RequestMethod.POST)
@@ -46,20 +46,20 @@ public class UserController {
         return "redirect:/admin/user";
     }
 
-    @GetMapping("admin/user/create")
+    @GetMapping("/admin/user/create")
     public String getCreateUserPage(Model model) {
         model.addAttribute("newUser", new User());
         return "admin/user/create";
     }
 
-    @GetMapping("admin/user/update/{id}")
+    @GetMapping("/admin/user/update/{id}")
     public String getUpdateUserPage(Model model, @PathVariable long id) {
         User currentUser = userService.getUserById(id);
         model.addAttribute("user", currentUser);
-        return "admin/user/updateUser";
+        return "admin/user/update";
     }
 
-    @PostMapping("admin/user/update")
+    @PostMapping("/admin/user/update")
     public String postUpdateUser(@ModelAttribute("user") User inforUser) {
         User currentUser = userService.getUserById(inforUser.getId());
         if (currentUser != null) {
@@ -71,14 +71,14 @@ public class UserController {
         return "redirect:/admin/user";
     }
 
-    @GetMapping("admin/user/delete/{id}")
+    @GetMapping("/admin/user/delete/{id}")
     public String getDeleteUserPage(Model model, @PathVariable long id) {
         model.addAttribute("deleteUser", userService.getUserById(id));
         model.addAttribute("id", id);
-        return "admin/user/deleteUser";
+        return "admin/user/delete";
     }
 
-    @PostMapping("admin/user/delete")
+    @PostMapping("/admin/user/delete")
     public String postDeleteUser(Model model, @ModelAttribute("deleteUser") User user) {
         userService.deleteUserById(user.getId());
         return "redirect:/admin/user";
