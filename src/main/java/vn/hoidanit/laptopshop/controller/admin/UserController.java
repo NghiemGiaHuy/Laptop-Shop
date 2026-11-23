@@ -1,9 +1,18 @@
 package vn.hoidanit.laptopshop.controller.admin;
 
+import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import vn.hoidanit.laptopshop.domain.Role;
 import vn.hoidanit.laptopshop.domain.User;
+import vn.hoidanit.laptopshop.service.UploadService;
 import vn.hoidanit.laptopshop.service.UserService;
 
 import java.util.List;
@@ -11,10 +20,14 @@ import java.util.List;
 @Controller
 public class UserController {
 
-    public final UserService userService;
+    private final UserService userService;
+    private final UploadService uploadService;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UploadService uploadService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.uploadService = uploadService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @RequestMapping("/")
@@ -25,9 +38,13 @@ public class UserController {
     }
 
     @RequestMapping("/admin/user")
-    public String getUserPage(Model model) {
-        List<User> users = userService.getAllUsers();
-        model.addAttribute("user1", users);
+    public String getUserPage(Model model, @RequestParam(defaultValue = "1") int page) {
+        Pageable pageable = PageRequest.of(page - 1, 1);
+        Page<User> users = userService.getAllUsers(pageable);
+        List<User> listUsers = users.getContent();
+        model.addAttribute("users", listUsers);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", users.getTotalPages());
         return "admin/user/show";
     }
 
@@ -39,10 +56,20 @@ public class UserController {
         return "admin/user/detail";
     }
 
-    @RequestMapping(value = "/admin/user/create", method = RequestMethod.POST)
-    public String createUserPage(Model model, @ModelAttribute("newUser") User user) {
-        System.out.println("Create user" + user);
-        this.userService.handleSaveUser(user);
+    @PostMapping(value = "/admin/user/create")
+    public String createUser(@ModelAttribute("newUser") @Valid User user, BindingResult newUserBindingResult,
+                             @RequestParam("myFile") MultipartFile file) {
+
+        if (newUserBindingResult.hasErrors()) {
+            return "admin/user/create";
+        }
+
+        String avatar = uploadService.handleSaveUploadFile(file, "avatar");
+        String hashPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(hashPassword);
+        user.setAvatar(avatar);
+        user.setRole(userService.getRoleByName(user.getRole().getName()));
+        userService.handleSaveUser(user);
         return "redirect:/admin/user";
     }
 
@@ -60,12 +87,16 @@ public class UserController {
     }
 
     @PostMapping("/admin/user/update")
-    public String postUpdateUser(@ModelAttribute("user") User inforUser) {
+    public String postUpdateUser(@ModelAttribute("user") User inforUser, @RequestParam("myFile") MultipartFile file) {
         User currentUser = userService.getUserById(inforUser.getId());
+        String avatar = uploadService.handleSaveUploadFile(file, "avatar");
+        Role role = userService.getRoleByName(inforUser.getRole().getName());
         if (currentUser != null) {
             currentUser.setFullName(inforUser.getFullName());
             currentUser.setAddress(inforUser.getAddress());
             currentUser.setPhone(inforUser.getPhone());
+            currentUser.setRole(role);
+            currentUser.setAvatar(avatar);
             userService.handleSaveUser(currentUser);
         }
         return "redirect:/admin/user";
@@ -75,11 +106,11 @@ public class UserController {
     public String getDeleteUserPage(Model model, @PathVariable long id) {
         model.addAttribute("deleteUser", userService.getUserById(id));
         model.addAttribute("id", id);
-        return "admin/user/delete";
+        return "admin/user/delete.jsp";
     }
 
     @PostMapping("/admin/user/delete")
-    public String postDeleteUser(Model model, @ModelAttribute("deleteUser") User user) {
+    public String postDeleteUser(@ModelAttribute("deleteUser") User user) {
         userService.deleteUserById(user.getId());
         return "redirect:/admin/user";
     }

@@ -26,17 +26,17 @@
             } else {
                 $('.fixed-top').removeClass('shadow').css('top', 0);
             }
-        } 
+        }
     });
-    
-    
-   // Back to top button
-   $(window).scroll(function () {
-    if ($(this).scrollTop() > 300) {
-        $('.back-to-top').fadeIn('slow');
-    } else {
-        $('.back-to-top').fadeOut('slow');
-    }
+
+
+    // Back to top button
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 300) {
+            $('.back-to-top').fadeIn('slow');
+        } else {
+            $('.back-to-top').fadeOut('slow');
+        }
     });
     $('.back-to-top').click(function () {
         $('html, body').animate({scrollTop: 0}, 1500, 'easeInOutExpo');
@@ -52,27 +52,27 @@
         dots: true,
         loop: true,
         margin: 25,
-        nav : true,
-        navText : [
+        nav: true,
+        navText: [
             '<i class="bi bi-arrow-left"></i>',
             '<i class="bi bi-arrow-right"></i>'
         ],
         responsiveClass: true,
         responsive: {
-            0:{
-                items:1
+            0: {
+                items: 1
             },
-            576:{
-                items:1
+            576: {
+                items: 1
             },
-            768:{
-                items:1
+            768: {
+                items: 1
             },
-            992:{
-                items:2
+            992: {
+                items: 2
             },
-            1200:{
-                items:2
+            1200: {
+                items: 2
             }
         }
     });
@@ -86,27 +86,27 @@
         dots: true,
         loop: true,
         margin: 25,
-        nav : true,
-        navText : [
+        nav: true,
+        navText: [
             '<i class="bi bi-arrow-left"></i>',
             '<i class="bi bi-arrow-right"></i>'
         ],
         responsiveClass: true,
         responsive: {
-            0:{
-                items:1
+            0: {
+                items: 1
             },
-            576:{
-                items:1
+            576: {
+                items: 1
             },
-            768:{
-                items:2
+            768: {
+                items: 2
             },
-            992:{
-                items:3
+            992: {
+                items: 3
             },
-            1200:{
-                items:4
+            1200: {
+                items: 4
             }
         }
     });
@@ -141,7 +141,6 @@
             }
         })
     });
-
 
 
     // Product Quantity
@@ -211,7 +210,7 @@
         let priceArr = [];
 
         $("#factoryFilter .form-check-input:checked").each(function () {
-           factoryArr.push($(this).val());
+            factoryArr.push($(this).val());
         });
         $("#targetFilter .form-check-input:checked").each(function () {
             targetArr.push($(this).val());
@@ -276,54 +275,54 @@
 
     //handle add to cart with ajax
     $('.btnAddToCartHomepage').click(function (event) {
-       event.preventDefault();
+        event.preventDefault();
 
-       if (!isLogin()) {
-           $.toast({
-               heading: 'Lỗi thao tác',
-               text : 'Bạn cần đăng nhập tài khoản',
-               position: 'top-right',
-               icon: 'error'
-           })
-           return;
-       }
+        if (!isLogin()) {
+            $.toast({
+                heading: 'Lỗi thao tác',
+                text: 'Bạn cần đăng nhập tài khoản',
+                position: 'top-right',
+                icon: 'error'
+            })
+            return;
+        }
 
-       const productId = $(this).attr('data-product-id');
-       const token = $("meta[name='_csrf']").attr("content");
-       const header = $("meta[name='_csrf_header']").attr("content");
-       const quantity = $("#cartDetails0\\.quantity").val();
+        const productId = $(this).attr('data-product-id');
+        const token = $("meta[name='_csrf']").attr("content");
+        const header = $("meta[name='_csrf_header']").attr("content");
+        const quantity = $("#cartDetails0\\.quantity").val();
 
-       $.ajax({
-           url: `${window.location.origin}/api/add-product-to-cart`,
-           beforeSend: function (xhr) {
-               xhr.setRequestHeader(header, token);
-               console.log(this.uri)
-           },
-           type: "POST",
-           data: JSON.stringify({quantity: quantity, productId: productId}),
-           contentType: "application/json",
+        $.ajax({
+            url: `${window.location.origin}/api/add-product-to-cart`,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(header, token);
+                console.log(this.uri)
+            },
+            type: "POST",
+            data: JSON.stringify({quantity: quantity, productId: productId}),
+            contentType: "application/json",
 
-           success: function (response) {
-               const sum = +response;
-               //update cart
-               $("#sumCart").text(sum);
-               //show message
-               $.toast({
-                   heading: 'Giỏ hàng',
-                   text : 'Thêm vào giỏ hàng thành công',
-                   position: 'top-right',
-               })
-           },
-           error: function (response) {
-               $.toast({
-                   heading: 'Lỗi',
-                   text : 'Có lỗi xảy ra',
-                   position: 'top-right',
-                   icon: 'error'
-               })
-               console.log("error: ", response)
-           }
-       })
+            success: function (response) {
+                const sum = +response;
+                //update cart
+                $("#sumCart").text(sum);
+                //show message
+                $.toast({
+                    heading: 'Giỏ hàng',
+                    text: 'Thêm vào giỏ hàng thành công',
+                    position: 'top-right',
+                })
+            },
+            error: function (response) {
+                $.toast({
+                    heading: 'Lỗi',
+                    text: 'Có lỗi xảy ra',
+                    position: 'top-right',
+                    icon: 'error'
+                })
+                console.log("error: ", response)
+            }
+        })
     });
 
     $('.btnAddToCartDetail').click(function (event) {
@@ -332,7 +331,7 @@
         if (!isLogin()) {
             $.toast({
                 heading: 'Lỗi thao tác',
-                text : 'Bạn cần đăng nhập tài khoản',
+                text: 'Bạn cần đăng nhập tài khoản',
                 position: 'top-right',
                 icon: 'error'
             })
@@ -360,14 +359,14 @@
                 //show message
                 $.toast({
                     heading: 'Giỏ hàng',
-                    text : 'Thêm vào giỏ hàng thành công',
+                    text: 'Thêm vào giỏ hàng thành công',
                     position: 'top-right',
                 })
             },
             error: function (response) {
                 $.toast({
                     heading: 'Lỗi',
-                    text : 'Có lỗi xảy ra',
+                    text: 'Có lỗi xảy ra',
                     position: 'top-right',
                     icon: 'error'
                 })

@@ -10,7 +10,6 @@
         <meta name="author" content="" />
         <title>Dashboard - SB Admin Huydz</title>
         <link href="/css/styles.css" rel="stylesheet" />
-        <link href="/css/custom.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
@@ -25,7 +24,67 @@
                             <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
                             <li class="breadcrumb-item active">Products</li>
                         </ol>
-                        <div>Table product</div>
+                        <div class="container mt-5">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="d-flex justify-content-between">
+                                        <h3>Table Products</h3>
+                                        <a href="/admin/product/create" class="btn btn-primary">Create a product</a>
+                                    </div>
+
+                                    <hr />
+                                    <table class=" table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Name</th>
+                                                <th>Price</th>
+                                                <th>Factory</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <c:forEach var="product" items="${products}">
+
+                                                <tr>
+                                                    <th>${product.id}</th>
+                                                    <td>${product.name}</td>
+                                                    <td>${product.price}</td>
+                                                    <td>${product.factory}</td>
+
+                                                    <td>
+                                                        <a href="/admin/product/${product.id}" class="btn btn-success">View</a>
+                                                        <a href="/admin/product/update/${product.id}"
+                                                            class="btn btn-warning  mx-2">Update</a>
+                                                        <a href="/admin/product/delete/${product.id}"
+                                                            class="btn btn-danger">Delete</a>
+                                                    </td>
+                                                </tr>
+
+                                            </c:forEach>
+
+                                        </tbody>
+                                    </table>
+                                    <nav aria-label="Page navigation example">
+                                        <ul class="pagination justify-content-center">
+                                            <li class="page-item">
+                                                <a class="page-link ${currentPage eq 1 ? 'disabled' : ''}" href="/admin/product?page=${currentPage - 1}" aria-label="Previous">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                </a>
+                                            </li>
+                                            <c:forEach begin="0" end="${totalPages-1}" varStatus="status">
+                                                <li class="page-item"><a class="page-link ${currentPage eq (status.index + 1) ? 'active' : ''}" href="/admin/product?page=${status.index + 1}">${status.index + 1}</a></li>
+                                            </c:forEach>
+                                            <li class="page-item">
+                                                <a class="page-link ${currentPage eq totalPages ? 'disabled' : ''}" href="/admin/product?page=${currentPage + 1}" aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </main>
                 <jsp:include page="../layout/footer.jsp" />

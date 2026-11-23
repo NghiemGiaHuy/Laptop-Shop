@@ -10,7 +10,6 @@
         <meta name="author" content="" />
         <title>Dashboard - SB Admin Huydz</title>
         <link href="/css/styles.css" rel="stylesheet" />
-        <link href="/css/custom.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
@@ -41,6 +40,7 @@
                                             <li class="list-group-item">ID: ${user.id}</li>
                                             <li class="list-group-item">Email: ${user.email}</li>
                                             <li class="list-group-item">Full Name: ${user.fullName}</li>
+                                            <li class="list-group-item">Role: ${user.role.name}</li>
                                             <li class="list-group-item">Address: ${user.address}</li>
                                             <li class="list-group-item">Phone Number: ${user.phone}</li>
                                         </ul>

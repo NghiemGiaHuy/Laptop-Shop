@@ -1,6 +1,9 @@
 package vn.hoidanit.laptopshop.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.util.List;
 
@@ -10,8 +13,19 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @NotNull
+    @Size(min = 3, message = "Full name phải có tối thiểu 3 ký tự")
     private String fullName;
+
+    @NotNull
+    @Size(min = 2, message = "Password phải có tối thiểu 2 ký tự")
     private String password;
+
+    @NotNull
+    @Email
+    @Email(message = "Email ko hợp lệ",
+            regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
     private String email;
     private String address;
     private String phone;
@@ -23,6 +37,17 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Order> orders;
+
+    @OneToOne(mappedBy = "user")
+    private Cart cart;
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
 
     public long getId() {
         return id;

@@ -11,8 +11,19 @@
         <meta name="author" content="" />
         <title>Dashboard - SB Admin Huydz</title>
         <link href="/css/styles.css" rel="stylesheet" />
-        <link href="/css/custom.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(() => {
+                const avatarFile = $("#avatarFile");
+
+                avatarFile.change(function (e) {
+                    const imgURL = URL.createObjectURL(e.target.files[0]);
+                    $("#avatarPreview").attr("src", imgURL);
+                    $("#avatarPreview").css({ "display": "block" });
+                });
+            });
+        </script>
     </head>
     <body class="sb-nav-fixed">
         <jsp:include page="../layout/header.jsp" />
@@ -31,29 +42,59 @@
                                 <div class="col-12 col-lg-6">
                                     <h3>Create Users</h3>
                                     <hr/>
-                                    <form:form method="post" action="/admin/user/create" modelAttribute="newUser">
+                                    <form:form method="post" action="/admin/user/create" modelAttribute="newUser" class="row"
+                                        enctype="multipart/form-data">
                                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                                        <div class="mb-3">
+                                        <div class="mb-3 col-12 col-md-6">
+                                            <c:set var="errorEmail">
+                                                <form:errors path="email" cssClass="invalid-feedback"/>
+                                            </c:set>
                                             <label class="form-label">Email:</label>
-                                            <form:input type="email" class="form-control" path="email"/>
+                                            <form:input type="email" class="form-control ${not empty errorEmail ? 'is-invalid' : ''}" path="email"/>
+                                            <form:errors path="email" cssClass="invalid-feedback"/>
                                         </div>
-                                        <div class="mb-3">
+                                        <div class="mb-3 col-12 col-md-6">
+                                            <c:set var="errorPassword">
+                                                <form:errors path="password" cssClass="invalid-feedback"/>
+                                            </c:set>
                                             <label class="form-label">Password:</label>
-                                            <form:input type="password" class="form-control" path="password"/>
+                                            <form:input type="password" class="form-control ${not empty errorPassword ? 'is-invalid' : ''}" path="password"/>
+                                            ${errorPassword}
                                         </div>
-                                        <div class="mb-3">
+                                        <div class="mb-3 col-12 col-md-6">
                                             <label class="form-label">Phone number:</label>
                                             <form:input type="text" class="form-control" path="phone"/>
                                         </div>
-                                        <div class="mb-3">
+                                        <div class="mb-3 col-12 col-md-6">
+                                            <c:set var="errorFullName">
+                                                <form:errors path="fullName" cssClass="invalid-feedback"/>
+                                            </c:set>
                                             <label class="form-label">Full Name:</label>
-                                            <form:input type="text" class="form-control" path="fullName"/>
+                                            <form:input type="text" class="form-control ${not empty errorFullName ? 'is-invalid' : ''}" path="fullName"/>
+                                            ${errorFullName}
                                         </div>
-                                        <div class="mb-3">
+                                        <div class="mb-3 col-12">
                                             <label class="form-label">Address:</label>
                                             <form:input type="text" class="form-control" path="address"/>
                                         </div>
-                                        <button type="submit" class="btn btn-primary">Create</button>
+                                        <div class="mb-3 col-12 col-md-6">
+                                            <label class="form-label">Role:</label>
+                                            <form:select class="form-select" path="role.name">
+                                              <form:option value="ADMIN">ADMIN</form:option>
+                                              <form:option value="USER">USER</form:option>
+                                            </form:select>
+                                        </div>
+                                        <div class="mb-3 col-12 col-md-6">
+                                          <label for="avatarFile" class="form-label">Avatar:</label>
+                                          <input class="form-control" type="file" id="avatarFile"
+                                            accept=".png, .jpg, .jpeg" name="myFile"/>
+                                        </div>
+                                        <div class="col-12 mb-3">
+                                            <img style="max-height: 250px; display: none;" alt="avatar preview" id="avatarPreview" />
+                                        </div>
+                                        <div class="col-12 mb-5">
+                                            <button type="submit" class="btn btn-primary">Create</button>
+                                        </div>
                                     </form:form>
                                 </div>
                             </div>

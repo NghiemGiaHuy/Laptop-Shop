@@ -1,6 +1,9 @@
 package vn.hoidanit.laptopshop.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.util.List;
 
@@ -10,11 +13,22 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @NotEmpty(message = "Tên sản phẩm không được để trống")
     private String name;
+
+    @DecimalMin(value = "0", inclusive = false, message = "Price phải lớn hơn 0")
     private double price;
     private String image;
+
+    @NotEmpty(message = "detailDesc không được để trống")
+    @Column(columnDefinition = "MEDIUMTEXT")
     private String detailDesc;
+
+    @NotEmpty(message = "shortDesc không được để trống")
     private String shortDesc;
+
+    @Min(value = 1, message = "Số lượng cần lớn hơn hoặc bằng 1")
     private long quantity;
     private long sold;
     private String factory;
@@ -22,6 +36,9 @@ public class Product {
 
     @OneToMany(mappedBy = "product")
     private List<OrderDetail> orderDetails;
+
+    @OneToMany(mappedBy = "product")
+    private List<CartDetail> cartDetails;
 
     public long getId() {
         return id;
@@ -109,6 +126,14 @@ public class Product {
 
     public void setOrderDetails(List<OrderDetail> orderDetails) {
         this.orderDetails = orderDetails;
+    }
+
+    public List<CartDetail> getCartDetails() {
+        return cartDetails;
+    }
+
+    public void setCartDetails(List<CartDetail> cartDetails) {
+        this.cartDetails = cartDetails;
     }
 
     @Override

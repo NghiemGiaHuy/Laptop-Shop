@@ -10,7 +10,6 @@
         <meta name="author" content="" />
         <title>Dashboard - SB Admin Huydz</title>
         <link href="/css/styles.css" rel="stylesheet" />
-        <link href="/css/custom.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
@@ -40,16 +39,19 @@
                                                 <th>ID</th>
                                                 <th>Email</th>
                                                 <th>Full Name</th>
+                                                <th>Role</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <c:forEach var="user" items="${user1}">
+                                            <c:forEach var="user" items="${users}">
 
                                                 <tr>
                                                     <th>${user.id}</th>
                                                     <td>${user.email}</td>
                                                     <td>${user.fullName}</td>
+                                                    <td>${user.role.name}</td>
+
                                                     <td>
                                                         <a href="/admin/user/${user.id}" class="btn btn-success">View</a>
                                                         <a href="/admin/user/update/${user.id}"
@@ -63,6 +65,23 @@
 
                                         </tbody>
                                     </table>
+                                    <nav aria-label="Page navigation example">
+                                        <ul class="pagination justify-content-center">
+                                            <li class="page-item">
+                                                <a class="page-link ${currentPage eq 1 ? 'disabled' : ''}" href="/admin/user?page=${currentPage - 1}" aria-label="Previous">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                </a>
+                                            </li>
+                                            <c:forEach begin="0" end="${totalPages-1}" varStatus="status">
+                                                <li class="page-item"><a class="page-link ${currentPage eq (status.index + 1) ? 'active' : ''}" href="/admin/user?page=${status.index + 1}">${status.index + 1}</a></li>
+                                            </c:forEach>
+                                            <li class="page-item">
+                                                <a class="page-link ${currentPage eq totalPages ? 'disabled' : ''}" href="/admin/user?page=${currentPage + 1}" aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </nav>
                                 </div>
                             </div>
                         </div>
