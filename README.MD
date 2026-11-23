@@ -2,7 +2,6 @@
 
 Ứng dụng web cửa hàng laptop được phát triển như một dự án cá nhân để thực hành xây dựng ứng dụng web với Java và Spring Boot. Dự án tập trung vào nền tảng bán hàng laptop và có thể tiếp tục được mở rộng, tùy chỉnh theo nhu cầu.
 
-> Đây là dự án cá nhân được phát triển và chỉnh sửa dựa trên quá trình học tập. Một số kiến thức và ý tưởng ban đầu được tham khảo từ series Java Spring MVC của **Hỏi Dân IT (Eric)**. Phần ghi nhận này nhằm tôn trọng nguồn tham khảo; các thay đổi và phần phát triển tiếp theo thuộc quá trình làm dự án của mình.
 
 ## Công nghệ
 
